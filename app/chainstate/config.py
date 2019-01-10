@@ -18,4 +18,8 @@ nodes_prod = {
         'url': 'http://172.31.7.228:8545',
         'explorer': "https://etherscan.io/block/%s",
     },
+    'Geth (Non-Constantinople)': {
+        'url': 'http://172.31.2.139:8545',
+        'explorer': "https://etherscan.io/block/%s",
+    },
 }
