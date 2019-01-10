@@ -180,8 +180,11 @@ def build_block_info(clientname):
     latest = get_latest_block(clientname)
     latestNumber = int(latest['number'])    
     latestTimestamp = latest['timestamp']
-
-    earlier = get_fetcher(clientname).get_block_by_number(latestNumber - block_interval_average_len)
+    try:
+        earlier = get_fetcher(clientname).get_block_by_number(latestNumber - block_interval_average_len)
+    except Exception as e:
+        #The client may e.g syncing, or generally unavailable
+        return None
     earlierTimestamp = earlier['timestamp']
 
     difficulty = latest['difficulty']
@@ -204,6 +207,7 @@ def build_block_info(clientname):
 
 def build_block_infos():
     infos = [build_block_info(name) for name in get_nodes()]
+    infos = [x for x in infos if x != None]
     max_difficulty = float(max(info['difficulty'] for info in infos))
     max_total_difficulty = max(info['totalDifficulty'] for info in infos)
     for info in infos:
