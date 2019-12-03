@@ -180,13 +180,19 @@ def build_block_info(clientname):
     latest = get_latest_block(clientname)
     latestNumber = int(latest['number'])    
     latestTimestamp = latest['timestamp']
-
-    earlier = get_fetcher(clientname).get_block_by_number(latestNumber - block_interval_average_len)
-    earlierTimestamp = earlier['timestamp']
-
     difficulty = latest['difficulty']
-    blockInterval = (latestTimestamp - earlierTimestamp) / float(block_interval_average_len)
-    hashRate = difficulty / blockInterval
+    blockInterval = 0
+    hashRate = 0
+
+    earlierNumber = latestNumber - block_interval_average_len
+    # Node might still be syncing
+    if earlierNumber > 0:
+        earlier = get_fetcher(clientname).get_block_by_number(latestNumber - block_interval_average_len)
+        earlierTimestamp = earlier['timestamp']
+
+        blockInterval = (latestTimestamp - earlierTimestamp) / float(block_interval_average_len)
+        hashRate = difficulty / blockInterval
+
 
     return {
         'number': latestNumber,
