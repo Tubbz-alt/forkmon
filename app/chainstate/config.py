@@ -10,16 +10,16 @@ nodes_debug = {
 }
 
 nodes_prod = {
-    'Geth (Constantinople)': {
+    'Geth (Upgraded)': {
         'url': 'http://172.31.0.19:8545',
         'explorer': "https://etherscan.io/block/%s",
     },
-    'Parity (Constantinople)': {
+    'Parity (Upgraded)': {
         'url': 'http://172.31.7.228:8545',
         'explorer': "https://etherscan.io/block/%s",
     },
-    'Geth (NonConstantinople - erroneous)': {
-        'url': 'http://172.31.2.139:8545',
+    'Geth (Non upgraded - erroneous)': {
+        'url': 'http://172.31.2.251:8545',
         'explorer': "https://etherscan.io/block/%s",
     },
 }
